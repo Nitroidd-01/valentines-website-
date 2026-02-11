@@ -39,18 +39,13 @@
         text-align: center;
         box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
         max-width: 90%;
-        width: 400px;
+        width: 420px;
         z-index: 10;
-        transition: transform 0.3s ease;
-    }
-
-    .card:hover {
-        transform: translateY(-5px);
     }
 
     h1 {
         font-family: 'Dancing Script', cursive;
-        font-size: 3.5rem;
+        font-size: 3rem;
         color: #fff;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         margin-bottom: 10px;
@@ -58,10 +53,10 @@
     }
 
     .gif-container img {
-        width: 150px;
+        width: 160px;
         height: auto;
         border-radius: 10px;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
 
     .buttons {
@@ -98,7 +93,6 @@
     #noBtn {
         background-color: #ff4b5c;
         color: white;
-        position: absolute;
     }
 
     .hidden {
@@ -107,8 +101,9 @@
 
     #message {
         font-family: 'Dancing Script', cursive;
-        font-size: 2.5rem;
+        font-size: 2.2rem;
         color: white;
+        line-height: 1.2;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         animation: pop 0.6s ease forwards;
     }
@@ -133,7 +128,6 @@
         100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
     }
 
-    /* --- MUSIC BUTTON STYLES --- */
     #musicBtn {
         position: fixed;
         bottom: 20px;
@@ -145,128 +139,21 @@
         padding: 10px 15px;
         border-radius: 50%;
         z-index: 100;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         border: 1px solid rgba(255,255,255,0.4);
+        cursor: pointer;
     }
-    
-    #musicBtn:hover {
-        background: rgba(255, 255, 255, 0.6);
-        transform: scale(1.1);
-    }
-
 </style>
 </head>
 
 <body>
 
-    <audio id="bgMusic" loop>
-        <audio id="bgMusic" loop autoplay>
+    <audio id="bgMusic" loop autoplay>
         <source src="song.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
     </audio>
 
-   <div class="gif-container" id="gifContainer">
-    <img src="https://media.tenor.com/7D97H9S9iS0AAAAi/bubu-dudu-bubu.gif" alt="Dudu Bear Please">
-</div>
-
-        <h1 id="question">Will you be my Valentine?</h1>
-
-        <div class="buttons" id="btnGroup">
-            <button id="yesBtn">Yes 💕</button>
-            <button id="noBtn">No 🙈</button>
+    <div class="card">
+        <div class="gif-container" id="gifContainer">
+            <img src="https://media.tenor.com/7D97H9S9iS0AAAAi/bubu-dudu-bubu.gif" alt="Dudu Bear Please">
         </div>
 
-        <div id="message" class="hidden">
-            YAYYY 💖 Thank you cutie pie im so happy you accepted my invite. Sorry for asking so late honey. I love you sunflower! 💖<br>
-            <span style="font-size: 1.5rem; font-family: 'Poppins', sans-serif;">(Best decision ever! 🥰)</span>
-        </div>
-    </div>
-
-    <button id="musicBtn">🔇</button>
-
-<script>
-const noBtn = document.getElementById("noBtn");
-const yesBtn = document.getElementById("yesBtn");
-const message = document.getElementById("message");
-const btnGroup = document.getElementById("btnGroup");
-const question = document.getElementById("question");
-const gifContainer = document.getElementById("gifContainer");
-const musicBtn = document.getElementById("musicBtn");
-const bgMusic = document.getElementById("bgMusic");
-
-// --- Music Logic ---
-let isPlaying = false;
-
-function toggleMusic() {
-    if (isPlaying) {
-        bgMusic.pause();
-        musicBtn.innerHTML = "🔇"; // Muted icon
-    } else {
-        bgMusic.play();
-        musicBtn.innerHTML = "🎵"; // Playing icon
-    }
-    isPlaying = !isPlaying;
-}
-
-musicBtn.addEventListener("click", toggleMusic);
-
-// Try to autoplay on first interaction (click anywhere)
-document.body.addEventListener("click", function() {
-    if (!isPlaying) {
-        bgMusic.play().then(() => {
-            isPlaying = true;
-            musicBtn.innerHTML = "🎵";
-        }).catch(error => {
-            console.log("Autoplay blocked, waiting for explicit click");
-        });
-    }
-}, { once: true }); 
-// { once: true } ensures this only runs on the very first click
-
-// --- Moving 'No' Button Logic ---
-function moveButton() {
-    const maxWidth = window.innerWidth - noBtn.offsetWidth;
-    const maxHeight = window.innerHeight - noBtn.offsetHeight;
-    const randomX = Math.random() * (maxWidth - 50);
-    const randomY = Math.random() * (maxHeight - 50);
-
-    noBtn.style.position = "fixed";
-    noBtn.style.left = randomX + "px";
-    noBtn.style.top = randomY + "px";
-}
-
-noBtn.addEventListener("touchstart", moveButton);
-noBtn.addEventListener("mouseover", moveButton);
-
-// --- Yes Button Logic ---
-yesBtn.addEventListener("click", () => {
-    btnGroup.classList.add("hidden");
-    question.classList.add("hidden");
-    message.classList.remove("hidden");
-    gifContainer.innerHTML = '<img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" alt="Bear Kissing">';
-    createConfetti();
-});
-
-// --- Background Hearts ---
-function createHeart() {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = Math.random() < 0.5 ? "💗" : "✨";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = (Math.random() * 20 + 10) + "px";
-    heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 7000);
-}
-
-setInterval(createHeart, 300);
-
-function createConfetti() {
-    for (let i = 0; i < 50; i++) {
-        setTimeout(createHeart, i * 50);
-    }
-}
-</script>
-
-</body>
-</html>
+        <h1 id="question">Will you be
