@@ -184,11 +184,22 @@ const gifContainer = document.getElementById("gifContainer");
 const musicBtn = document.getElementById("musicBtn");
 const bgMusic = document.getElementById("bgMusic");
 
-// Play music immediately
+// --- Music Logic ---
 bgMusic.volume = 1;
-bgMusic.play();
+musicBtn.innerHTML = "🔇";
 
-// Toggle music
+// Start music on FIRST interaction anywhere
+document.addEventListener("click", function startMusic() {
+    bgMusic.play().then(() => {
+        musicBtn.innerHTML = "🎵";
+    }).catch(() => {
+        console.log("Autoplay blocked");
+    });
+
+    document.removeEventListener("click", startMusic);
+});
+
+// Toggle music manually
 musicBtn.addEventListener("click", function () {
     if (bgMusic.paused) {
         bgMusic.play();
@@ -198,6 +209,7 @@ musicBtn.addEventListener("click", function () {
         musicBtn.innerHTML = "🔇";
     }
 });
+
 
 // YES button
 yesBtn.addEventListener("click", () => {
