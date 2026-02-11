@@ -28,112 +28,105 @@
         100% { background-position: 0% 50%; }
     }
 
-    /* Fixed the Card Layout */
+    /* Static Floral Frame */
+    .flower-corner {
+        position: fixed;
+        font-size: 50px;
+        z-index: 5;
+        pointer-events: none;
+        filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.1));
+    }
+    .top-left { top: 20px; left: 20px; }
+    .top-right { top: 20px; right: 20px; }
+    .bottom-left { bottom: 80px; left: 20px; }
+    .bottom-right { bottom: 80px; right: 80px; }
+
+    /* Glassmorphism Card */
     .card {
-        background: rgba(255, 255, 255, 0.25);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border-radius: 20px;
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border-radius: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.4);
         padding: 30px;
         text-align: center;
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        box-shadow: 0 15px 35px rgba(255, 105, 180, 0.3);
         max-width: 85%;
-        width: 450px; /* Slightly wider to fit text */
-        z-index: 10;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        width: 450px;
+        z-index: 20;
     }
 
     h1 {
         font-family: 'Dancing Script', cursive;
-        font-size: 2.8rem; /* Scaled down slightly to prevent cutoff */
+        font-size: 2.8rem;
         color: #fff;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        text-shadow: 2px 2px 8px rgba(219, 58, 120, 0.4);
         margin: 10px 0;
-        line-height: 1.2;
     }
 
-    .gif-container {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        margin-bottom: 10px;
+    /* Countdown Styling */
+    #countdown {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.1rem;
+        color: #fff;
+        background: rgba(255, 75, 92, 0.3);
+        padding: 8px 15px;
+        border-radius: 20px;
+        margin-bottom: 15px;
+        display: inline-block;
+        font-weight: 600;
+        letter-spacing: 1px;
     }
 
     .gif-container img {
-        width: 160px;
+        width: 170px;
         height: auto;
-        border-radius: 10px;
+        border-radius: 20px;
     }
 
     .buttons {
         position: relative;
         display: flex;
         justify-content: center;
-        gap: 20px;
+        gap: 25px;
         margin-top: 20px;
-        width: 100%;
-        min-height: 60px;
+        min-height: 70px;
     }
 
     button {
-        padding: 12px 30px;
+        padding: 12px 35px;
         font-size: 18px;
         font-weight: 600;
         border: none;
         border-radius: 50px;
         cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
 
-    #yesBtn {
-        background-color: #fff;
-        color: #ff4b5c;
-        z-index: 11;
-    }
+    #yesBtn { background-color: #fff; color: #ff4b5c; }
+    #yesBtn:hover { transform: scale(1.1); background-color: #ff4b5c; color: #fff; }
 
-    #yesBtn:hover {
-        background-color: #ff4b5c;
-        color: white;
-        transform: scale(1.1);
-    }
-
-    #noBtn {
-        background-color: #ff4b5c;
-        color: white;
-        z-index: 12;
-    }
-
-    .hidden {
-        display: none;
-    }
+    #noBtn { background-color: #ff4b5c; color: white; }
 
     #message {
         font-family: 'Dancing Script', cursive;
-        font-size: 1.8rem; /* Adjusted for readability */
+        font-size: 1.8rem;
         color: white;
         line-height: 1.4;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-        animation: pop 0.6s ease forwards;
+        animation: pop 0.8s ease forwards;
     }
 
     @keyframes pop {
-        0% { transform: scale(0); opacity: 0; }
+        0% { transform: scale(0.5); opacity: 0; }
         100% { transform: scale(1); opacity: 1; }
     }
 
     .heart {
         position: absolute;
         bottom: -20px;
-        font-size: 20px;
-        color: rgba(255, 255, 255, 0.8);
         animation: floatUp linear infinite;
         z-index: 1;
-        pointer-events: none;
     }
 
     @keyframes floatUp {
@@ -145,28 +138,38 @@
         position: fixed;
         bottom: 20px;
         right: 20px;
-        background: rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.4);
         backdrop-filter: blur(5px);
-        color: white;
-        font-size: 24px;
-        padding: 10px 15px;
+        font-size: 28px;
+        width: 60px;
+        height: 60px;
         border-radius: 50%;
         z-index: 100;
-        border: 1px solid rgba(255,255,255,0.4);
+        border: 2px solid #fff;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 </style>
 </head>
 
 <body>
 
-    <audio id="bgMusic" loop>
+    <div class="flower-corner top-left">🌻⚪🌹</div>
+    <div class="flower-corner top-right">🌹⚪🌻</div>
+    <div class="flower-corner bottom-left">🌻⚪🌹</div>
+    <div class="flower-corner bottom-right">🌹⚪🌻</div>
+
+    <audio id="bgMusic" loop autoplay>
         <source src="song.mp3" type="audio/mpeg">
     </audio>
 
     <div class="card">
+        <div id="countdown">Loading...</div>
+
         <div class="gif-container" id="gifContainer">
-            <img src="https://media.tenor.com/7D97H9S9iS0AAAAi/bubu-dudu-bubu.gif" alt="Dudu Bear Please">
+            <img src="https://media.tenor.com/7D97H9S9iS0AAAAi/bubu-dudu-bubu.gif" alt="Dudu Love">
         </div>
 
         <h1 id="question">Will you be my Valentine?</h1>
@@ -181,11 +184,11 @@
             I'm so happy you accepted.<br>
             Sorry for asking so late honey.<br>
             I love you sunflower! 🌻<br>
-            <span style="font-size: 1.2rem; font-family: 'Poppins', sans-serif; display: block; margin-top: 10px;">(Best decision ever! 🥰)</span>
+            <span style="font-size: 1.2rem; font-family: 'Poppins', sans-serif;">🥰 Best day ever! 🥰</span>
         </div>
     </div>
 
-    <button id="musicBtn">🔇</button>
+    <button id="musicBtn">🎵</button>
 
 <script>
 const noBtn = document.getElementById("noBtn");
@@ -197,78 +200,86 @@ const gifContainer = document.getElementById("gifContainer");
 const musicBtn = document.getElementById("musicBtn");
 const bgMusic = document.getElementById("bgMusic");
 
-// --- Music Logic ---
-let isPlaying = false; 
+// --- Countdown Logic ---
+function updateCountdown() {
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const vDay = new Date(`February 14, ${currentYear} 00:00:00`);
 
-function toggleMusic() {
-    if (isPlaying) {
-        bgMusic.pause();
-        musicBtn.innerHTML = "🔇";
+    // If V-day has passed this year, set for next year (though probably not needed for now!)
+    if (now > vDay) vDay.setFullYear(currentYear + 1);
+
+    const diff = vDay - now;
+
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+    const timerText = document.getElementById("countdown");
+    if (diff > 0) {
+        timerText.innerHTML = `${d}d ${h}h ${m}m ${s}s left 💖`;
     } else {
-        bgMusic.play();
-        musicBtn.innerHTML = "🎵";
+        timerText.innerHTML = "Happy Valentine's Day! 💖";
     }
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+// --- Music Logic ---
+let isPlaying = true; 
+function toggleMusic() {
+    if (isPlaying) { bgMusic.pause(); musicBtn.innerHTML = "🔇"; } 
+    else { bgMusic.play(); musicBtn.innerHTML = "🎵"; }
     isPlaying = !isPlaying;
 }
-
 musicBtn.addEventListener("click", toggleMusic);
 
-// The browser will only play music AFTER the first click
-document.body.addEventListener("click", function() {
-    if (!isPlaying) {
-        bgMusic.play().then(() => {
-            isPlaying = true;
-            musicBtn.innerHTML = "🎵";
-        }).catch(e => console.log("Audio waiting..."));
-    }
+window.addEventListener('click', () => {
+    bgMusic.play().then(() => {
+        musicBtn.innerHTML = "🎵";
+        isPlaying = true;
+    });
 }, { once: true });
 
-// --- Moving 'No' Button ---
+// --- No Button Logic ---
 function moveButton() {
-    const maxWidth = window.innerWidth - noBtn.offsetWidth;
-    const maxHeight = window.innerHeight - noBtn.offsetHeight;
-    
-    // Ensure it doesn't just go to 0,0
-    const randomX = Math.floor(Math.random() * (maxWidth - 40)) + 20;
-    const randomY = Math.floor(Math.random() * (maxHeight - 40)) + 20;
-
+    const padding = 60; 
+    const maxWidth = window.innerWidth - noBtn.offsetWidth - padding;
+    const maxHeight = window.innerHeight - noBtn.offsetHeight - padding;
+    const randomX = Math.max(padding, Math.floor(Math.random() * maxWidth));
+    const randomY = Math.max(padding, Math.floor(Math.random() * maxHeight));
     noBtn.style.position = "fixed";
     noBtn.style.left = randomX + "px";
     noBtn.style.top = randomY + "px";
 }
-
 noBtn.addEventListener("mouseover", moveButton);
-noBtn.addEventListener("touchstart", (e) => {
-    e.preventDefault();
-    moveButton();
-});
+noBtn.addEventListener("touchstart", (e) => { e.preventDefault(); moveButton(); });
 
-// --- Yes Button Logic ---
+// --- Celebration Logic ---
 yesBtn.addEventListener("click", () => {
     btnGroup.classList.add("hidden");
     question.classList.add("hidden");
+    document.getElementById("countdown").classList.add("hidden");
     message.classList.remove("hidden");
-    gifContainer.innerHTML = '<img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" alt="Bear Kissing">';
-    
-    // Create extra celebration hearts
-    for(let i=0; i<30; i++) {
-        setTimeout(createHeart, i * 100);
-    }
+    gifContainer.innerHTML = '<img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" alt="Dudu Kiss">';
+    for(let i=0; i<60; i++) { setTimeout(createHeart, i * 80); }
 });
 
-// --- Floating Hearts Background ---
+// --- Floating background hearts/flowers ---
 function createHeart() {
     const heart = document.createElement("div");
     heart.classList.add("heart");
-    heart.innerHTML = Math.random() < 0.5 ? "💗" : "✨";
+    const symbols = ["💗", "🌻", "✨", "🌸", "🤍"];
+    heart.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
     heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = (Math.random() * 20 + 10) + "px";
-    heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+    heart.style.fontSize = (Math.random() * 25 + 15) + "px";
+    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+    heart.style.opacity = Math.random();
     document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 7000);
+    setTimeout(() => heart.remove(), 6000);
 }
-setInterval(createHeart, 400);
-
+setInterval(createHeart, 350);
 </script>
 </body>
 </html>
