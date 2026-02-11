@@ -91,11 +91,11 @@
         transform: scale(1.1);
     }
 
-    #noBtn {
-        background-color: #ff4b5c;
-        color: white;
-        position: relative; /* stays side-by-side */
-    }
+   #noBtn {
+    background-color: #ff4b5c;
+    color: white;
+    position: absolute;   /* allow movement */
+}
 
     .hidden {
         display: none;
@@ -154,7 +154,7 @@
 
     <div class="card">
         <div class="gif-container" id="gifContainer">
-            <img src="https://media.tenor.com/qQx-6pXcH3UAAAAi/dudu-love.gif" alt="Dudu Holding Heart">
+            <img src="https://tenor.com/en-GB/view/hearts-jumping-gif-19295924" alt="Dudu Holding Heart">
         </div>
 
         <h1 id="question">Will you be my Valentine?</h1>
@@ -226,6 +226,20 @@ function createConfetti() {
     for (let i = 0; i < 50; i++) {
         setTimeout(createHeart, i * 50);
     }
+    function moveButton() {
+    const maxWidth = window.innerWidth - noBtn.offsetWidth;
+    const maxHeight = window.innerHeight - noBtn.offsetHeight;
+
+    const randomX = Math.random() * maxWidth;
+    const randomY = Math.random() * maxHeight;
+
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
+}
+
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("touchstart", moveButton);
+
 }
 </script>
 
