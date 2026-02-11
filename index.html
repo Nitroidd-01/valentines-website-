@@ -1,61 +1,104 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Will You Be My Valentine? 💖</title>
+<title>Be My Valentine? 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
     body {
         margin: 0;
         padding: 0;
         font-family: 'Poppins', sans-serif;
-        background: linear-gradient(135deg, #ff9a9e, #fecfef);
+        background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #ffd1ff, #fbc2eb);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
         overflow: hidden;
-        text-align: center;
         height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        color: white;
+    }
+
+    @keyframes gradientBG {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    /* Glassmorphism Card */
+    .card {
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 40px;
+        text-align: center;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        max-width: 90%;
+        width: 400px;
+        z-index: 10;
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
     }
 
     h1 {
-        font-size: 28px;
-        padding: 20px;
+        font-family: 'Dancing Script', cursive;
+        font-size: 3.5rem;
+        color: #fff;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        margin-bottom: 10px;
+        margin-top: 0;
+    }
+
+    .gif-container img {
+        width: 150px;
+        height: auto;
+        border-radius: 10px;
+        margin-bottom: 20px;
     }
 
     .buttons {
         position: relative;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
         margin-top: 20px;
-        width: 100%;
-        height: 200px;
+        min-height: 60px;
     }
 
     button {
-        padding: 12px 25px;
+        padding: 12px 30px;
         font-size: 18px;
+        font-weight: 600;
         border: none;
-        border-radius: 30px;
+        border-radius: 50px;
         cursor: pointer;
-        position: absolute;
-        transition: 0.3s ease;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
     #yesBtn {
+        background-color: #fff;
+        color: #ff4b5c;
+    }
+
+    #yesBtn:hover {
         background-color: #ff4b5c;
         color: white;
-        left: 30%;
-        top: 40%;
+        transform: scale(1.1);
     }
 
     #noBtn {
-        background-color: white;
-        color: #ff4b5c;
-        left: 60%;
-        top: 40%;
+        background-color: #ff4b5c;
+        color: white;
+        position: absolute;
     }
 
     .hidden {
@@ -63,26 +106,52 @@
     }
 
     #message {
-        font-size: 26px;
-        margin-top: 20px;
+        font-family: 'Dancing Script', cursive;
+        font-size: 2.5rem;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         animation: pop 0.6s ease forwards;
     }
 
     @keyframes pop {
-        0% { transform: scale(0); }
-        100% { transform: scale(1); }
+        0% { transform: scale(0); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
     }
 
     .heart {
         position: absolute;
         bottom: -20px;
         font-size: 20px;
-        animation: floatUp 6s linear infinite;
+        color: rgba(255, 255, 255, 0.8);
+        animation: floatUp linear infinite;
+        z-index: 1;
+        pointer-events: none;
     }
 
     @keyframes floatUp {
-        0% { transform: translateY(0); opacity: 1; }
-        100% { transform: translateY(-110vh); opacity: 0; }
+        0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* --- MUSIC BUTTON STYLES --- */
+    #musicBtn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(5px);
+        color: white;
+        font-size: 24px;
+        padding: 10px 15px;
+        border-radius: 50%;
+        z-index: 100;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        border: 1px solid rgba(255,255,255,0.4);
+    }
+    
+    #musicBtn:hover {
+        background: rgba(255, 255, 255, 0.6);
+        transform: scale(1.1);
     }
 
 </style>
@@ -90,28 +159,78 @@
 
 <body>
 
-<h1>Will You Be My Valentine? 💖</h1>
+    <audio id="bgMusic" loop>
+        <source src="song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
-<div class="buttons">
-    <button id="yesBtn">Yes 💕</button>
-    <button id="noBtn">No 🙈</button>
-</div>
+    <div class="card">
+        <div class="gif-container" id="gifContainer">
+            <img src="https://media.tenor.com/fMP1MpG5Tf8AAAAi/cute-bear.gif" alt="Cute Bear Asking">
+        </div>
 
-<div id="message" class="hidden">YAYYY 💖 You just made me the happiest person alive! 🥰</div>
+        <h1 id="question">Will you be my Valentine?</h1>
+
+        <div class="buttons" id="btnGroup">
+            <button id="yesBtn">Yes 💕</button>
+            <button id="noBtn">No 🙈</button>
+        </div>
+
+        <div id="message" class="hidden">
+            YAYYY 💖 Thank you cutie pie im so happy you accepted my invite. Sorry for asking so late honey. I love you sunflower! 💖<br>
+            <span style="font-size: 1.5rem; font-family: 'Poppins', sans-serif;">(Best decision ever! 🥰)</span>
+        </div>
+    </div>
+
+    <button id="musicBtn">🔇</button>
 
 <script>
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 const message = document.getElementById("message");
+const btnGroup = document.getElementById("btnGroup");
+const question = document.getElementById("question");
+const gifContainer = document.getElementById("gifContainer");
+const musicBtn = document.getElementById("musicBtn");
+const bgMusic = document.getElementById("bgMusic");
 
+// --- Music Logic ---
+let isPlaying = false;
+
+function toggleMusic() {
+    if (isPlaying) {
+        bgMusic.pause();
+        musicBtn.innerHTML = "🔇"; // Muted icon
+    } else {
+        bgMusic.play();
+        musicBtn.innerHTML = "🎵"; // Playing icon
+    }
+    isPlaying = !isPlaying;
+}
+
+musicBtn.addEventListener("click", toggleMusic);
+
+// Try to autoplay on first interaction (click anywhere)
+document.body.addEventListener("click", function() {
+    if (!isPlaying) {
+        bgMusic.play().then(() => {
+            isPlaying = true;
+            musicBtn.innerHTML = "🎵";
+        }).catch(error => {
+            console.log("Autoplay blocked, waiting for explicit click");
+        });
+    }
+}, { once: true }); 
+// { once: true } ensures this only runs on the very first click
+
+// --- Moving 'No' Button Logic ---
 function moveButton() {
-    const container = document.querySelector(".buttons");
-    const maxX = container.clientWidth - noBtn.offsetWidth;
-    const maxY = container.clientHeight - noBtn.offsetHeight;
+    const maxWidth = window.innerWidth - noBtn.offsetWidth;
+    const maxHeight = window.innerHeight - noBtn.offsetHeight;
+    const randomX = Math.random() * (maxWidth - 50);
+    const randomY = Math.random() * (maxHeight - 50);
 
-    const randomX = Math.random() * maxX;
-    const randomY = Math.random() * maxY;
-
+    noBtn.style.position = "fixed";
     noBtn.style.left = randomX + "px";
     noBtn.style.top = randomY + "px";
 }
@@ -119,27 +238,34 @@ function moveButton() {
 noBtn.addEventListener("touchstart", moveButton);
 noBtn.addEventListener("mouseover", moveButton);
 
+// --- Yes Button Logic ---
 yesBtn.addEventListener("click", () => {
-    document.querySelector(".buttons").classList.add("hidden");
+    btnGroup.classList.add("hidden");
+    question.classList.add("hidden");
     message.classList.remove("hidden");
+    gifContainer.innerHTML = '<img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" alt="Bear Kissing">';
+    createConfetti();
 });
 
+// --- Background Hearts ---
 function createHeart() {
     const heart = document.createElement("div");
     heart.classList.add("heart");
-    heart.innerHTML = "💗";
+    heart.innerHTML = Math.random() < 0.5 ? "💗" : "✨";
     heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = (Math.random() * 20 + 15) + "px";
-    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+    heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+    heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
     document.body.appendChild(heart);
-
-    setTimeout(() => {
-        heart.remove();
-    }, 6000);
+    setTimeout(() => heart.remove(), 7000);
 }
 
-setInterval(createHeart, 400);
+setInterval(createHeart, 300);
 
+function createConfetti() {
+    for (let i = 0; i < 50; i++) {
+        setTimeout(createHeart, i * 50);
+    }
+}
 </script>
 
 </body>
